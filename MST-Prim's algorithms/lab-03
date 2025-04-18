@@ -1,0 +1,71 @@
+import java.util.*;
+
+public class lab-03 {
+    static int Vertex = 5;
+
+    // Function to find the vertex with the minimum key value
+    static int minKey(int key[], boolean mstSet[]) {
+        int min = Integer.MAX_VALUE, min_index = -1;
+
+        for (int v = 0; v < Vertex; v++) {
+            if (!mstSet[v] && key[v] < min) {
+                min = key[v];
+                min_index = v;
+            }
+        }
+
+        return min_index;
+    }
+
+    // Function to print the MST and its total weight
+    static void printMST(int parent[], int key[]) {
+        int mst = 0;
+        System.out.println("Edge \tWeight");
+        for (int i = 1; i < Vertex; i++) {
+            mst += key[i];
+            System.out.println(parent[i] + " - " + i + "\t" + key[i]);
+        }
+        System.out.println("MST of graph: " + mst);
+    }
+
+     
+    static void primMST(int graph[][]) {
+        int parent[] = new int[Vertex];  
+        int key[] = new int[Vertex];     
+        boolean mstSet[] = new boolean[Vertex];  
+         
+        for (int i = 0; i < Vertex; i++) {
+            key[i] = Integer.MAX_VALUE;
+            mstSet[i] = false;
+        }
+
+        key[0] = 0;      
+        parent[0] = -1;  
+
+        for (int count = 0; count < Vertex - 1; count++) {
+            int u = minKey(key, mstSet);
+            mstSet[u] = true;
+
+            for (int v = 0; v < Vertex; v++) {
+                if (graph[u][v] != 0 && !mstSet[v] && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+            }
+        }
+
+        printMST(parent, key);
+    }
+
+    public static void main(String[] args) {
+        int graph[][] = new int[][] {
+            {0, 2, 0, 6, 0},
+            {2, 0, 3, 8, 5},
+            {0, 3, 0, 0, 7},
+            {6, 8, 0, 0, 9},
+            {0, 5, 7, 9, 0}
+        };
+
+        primMST(graph);
+    }
+}
