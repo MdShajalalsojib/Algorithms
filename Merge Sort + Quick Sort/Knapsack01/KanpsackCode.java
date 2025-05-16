@@ -48,15 +48,15 @@ public class KanpsackCode {
         int[] visit = new int[V];
         Edge[] result = new Edge[V];
 
-        // Number of edges to be taken is equal to V - 1
+         
         while (noOfEdges < V - 1) {
             Edge nextEdge = edgeList.get(j++);
             // You would typically check here for cycles using Union-Find
             // This part seems to be on the next page or incomplete
         }
     }
-    int x = nextEdge.p1;
-int y = nextEdge.p2;
+           int x = nextEdge.p1;
+           int y = nextEdge.p2;
 
 if (visit[x] == 0 || visit[y] == 0) {
     result[nofEdge] = nextEdge;
@@ -80,6 +80,7 @@ public class Main {
     }
 }
 }
+
 
     
 
